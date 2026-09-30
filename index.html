@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BBC Sport · Interactive Live Experiences prototype</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Live moments, all week long. A working prototype of BBC Sport live on the app and website, from build-up to live to catch-up. Passphrase required.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BBC Sport · Interactive Live Experiences">
+<meta property="og:title" content="BBC Sport · Interactive Live Experiences prototype">
+<meta property="og:description" content="Live moments, all week long. A working prototype of BBC Sport live on the app and website, from build-up to live to catch-up. Passphrase required.">
+<meta property="og:url" content="https://arunkrism.github.io/bbc-live-experiences/">
+<meta property="og:image" content="https://arunkrism.github.io/bbc-live-experiences/og-card.jpg?v=2">
+<meta property="og:image:secure_url" content="https://arunkrism.github.io/bbc-live-experiences/og-card.jpg?v=2">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BBC Sport Interactive Live Experiences prototype: live data, match stats and score predictions on the app">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BBC Sport · Interactive Live Experiences prototype">
+<meta name="twitter:description" content="Live moments, all week long. A working prototype of BBC Sport live on the app and website, from build-up to live to catch-up. Passphrase required.">
+<meta name="twitter:image" content="https://arunkrism.github.io/bbc-live-experiences/og-card.jpg?v=2">
+<meta name="theme-color" content="#000000">
+<link rel="stylesheet" href="styles.css?v34w100">
+<style>.gate { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 16px; background: #000; color: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.gate[hidden] { display: none; }
+.gatebox { width: min(420px, 100%); display: grid; gap: 12px; }
+.gatebbc { display: flex; gap: 3px; }
+.gatebbc i { width: 26px; height: 26px; background: #fff; color: #000; font: 700 17px/26px Helvetica, Arial, sans-serif; font-style: normal; text-align: center; }
+.gatekick { margin: 6px 0 0; color: #FFD230; font-weight: 800; font-size: 13px; letter-spacing: .06em; }
+.gatebox h1 { margin: 0; font-size: 30px; line-height: 1.1; }
+.gatesub { margin: 0 0 8px; color: #BDBDBD; font-size: 15px; line-height: 1.45; }
+.gatelab { font-size: 13px; font-weight: 700; }
+#gatepw { height: 48px; padding: 0 14px; font-size: 17px; color: #fff; background: #1A1A1A; border: 2px solid #444; border-radius: 0; }
+#gatepw:focus { outline: none; border-color: #FFD230; }
+.gaterem { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #D0D0D0; }
+#gatego { height: 48px; border: 0; background: #FFD230; color: #000; font-size: 16px; font-weight: 800; cursor: pointer; }
+#gatego:disabled { opacity: .6; cursor: progress; }
+.gateerr { min-height: 20px; margin: 0; color: #FF8A80; font-size: 14px; }
+
+.gatepwrow { position: relative; display: flex; }
+.gatepwrow #gatepw { flex: 1; min-width: 0; padding-right: 76px; }
+#gateshow { position: absolute; right: 6px; top: 6px; bottom: 6px; padding: 0 12px; border: 1px solid #555; background: #262626; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; }
+#gateshow[aria-pressed="true"] { background: #FFD230; border-color: #FFD230; color: #000; }
+#gateshow:focus-visible { outline: 2px solid #FFD230; outline-offset: 2px; }
+.gatehint { margin: -4px 0 0; color: #9A9A9A; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <form class="gatebox" id="gateform" autocomplete="off">
+    <span class="gatebbc" aria-label="BBC"><i>B</i><i>B</i><i>C</i></span>
+    <p class="gatekick">SPORT · Interactive Live Experiences</p>
+    <h1>This prototype is private</h1>
+    <p class="gatesub">Enter the passphrase to open it. Everything here is encrypted until you do.</p>
+    <label class="gatelab" for="gatepw">Passphrase</label>
+    <div class="gatepwrow">
+      <input id="gatepw" type="password" autocomplete="current-password" spellcheck="false" autocapitalize="off" autocorrect="off" required>
+      <button type="button" id="gateshow" aria-controls="gatepw" aria-pressed="false">Show</button>
+    </div>
+    <p class="gatehint">Capitals don't matter. Spaces or hyphens between the words both work.</p>
+    <label class="gaterem"><input type="checkbox" id="gaterem"> Remember on this device</label>
+    <button type="submit" id="gatego">Open the prototype</button>
+    <p class="gateerr" id="gateerr" role="alert"></p>
+  </form>
+</div>
+
+<div id="deskwrap" hidden>
+<div class="deskframe">
+
+  <header class="deskbar">
+    <span class="brandline"><b>Interactive Live Experiences</b> &nbsp;·&nbsp; Prototype <i class="build">v34 · Wimbledon 100</i></span>
+    <div class="surface" id="surface" role="tablist" aria-label="Screen"></div>
+    <div class="lifecycle" id="lifecycle" role="tablist" aria-label="Fixture lifecycle"></div>
+    <i class="build mob">Prototype v34 · W100</i>
+    <span class="hintline"><span id="lcblurb"></span></span>
+  </header>
+
+  <main class="deskstage">
+    <figure class="devwrap tvwrap">
+      <div class="tvset" id="tvset" hidden>
+        <div class="tvscreen"><div id="tvapp"></div></div>
+      </div>
+      <figcaption class="devcap tvcap">On the telly: watch, listen, catch up, glance at the numbers</figcaption>
+    </figure>
+    <figure class="devwrap phonewrap">
+      <div class="device" id="device">
+        <div id="app"></div>
+      </div>
+      <figcaption class="devcap phonecap">On the phone: play along, go deeper, join the conversation</figcaption>
+    </figure>
+  </main>
+
+  <div class="swipehint" id="swipehint" aria-hidden="true"></div>
+
+</div>
+
+</div>
+<script>window.ENCV="v34w100";</script>
+<script>/* The prototype's code and data ship encrypted (AES-256-GCM, key derived
+   from the passphrase with PBKDF2-SHA-256). Nothing readable is on the page
+   until the passphrase is entered; a wrong one simply fails to decrypt. */
+(function () {
+  var KEYNAME = "bbc-live-exp-key";
+  var form = document.getElementById("gateform"), pw = document.getElementById("gatepw");
+  var err = document.getElementById("gateerr"), go = document.getElementById("gatego"), rem = document.getElementById("gaterem");
+  function b64(s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) { u[i] = b.charCodeAt(i); } return u; }
+  function unb64(u) { var s = ""; u = new Uint8Array(u); for (var i = 0; i < u.length; i++) { s += String.fromCharCode(u[i]); } return btoa(s); }
+  function store(get, k, v) {
+    try { if (get) { return localStorage.getItem(k) || sessionStorage.getItem(k); } (v.remember ? localStorage : sessionStorage).setItem(k, v.val); } catch (e) { return null; }
+    return null;
+  }
+  /* file:// pages can't fetch the encrypted bundle, and some browsers only
+     offer Web Crypto on https, so say which it is rather than blaming the passphrase */
+  var LOADFAIL = location.protocol === "file:"
+    ? "This page needs to be opened from its web address, not as a file on your computer."
+    : "The prototype didn't load. Check your connection, refresh the page, and try again.";
+  var bundle = fetch("app.enc?" + (window.ENCV || ""), { cache: "no-store" }).then(function (r) {
+    if (!r.ok) { throw new Error("load"); }
+    return r.json();
+  }).catch(function () { var e = new Error("load"); e.load = true; throw e; });
+  bundle.catch(function () {});
+  if (!window.crypto || !crypto.subtle) { err.textContent = "This browser can't open the prototype here. Open it from its https address in Chrome, Safari or Edge."; }
+  function run(key) {
+    return bundle.then(function (B) {
+      return crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(B.iv) }, key, b64(B.ct));
+    }).then(function (plain) {
+      var s = document.createElement("script");
+      s.textContent = new TextDecoder().decode(plain);
+      document.getElementById("gate").hidden = true;
+      document.getElementById("deskwrap").hidden = false;
+      document.body.appendChild(s);
+    });
+  }
+  function fromRaw(raw) { return crypto.subtle.importKey("raw", b64(raw), "AES-GCM", true, ["decrypt"]); }
+  var saved = store(true, KEYNAME);
+  if (saved) {
+    fromRaw(saved).then(run).catch(function () { try { localStorage.removeItem(KEYNAME); sessionStorage.removeItem(KEYNAME); } catch (e) {} });
+  }
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    err.textContent = ""; go.disabled = true; go.textContent = "Opening…";
+    var key;
+    bundle.then(function (B) {
+      return crypto.subtle.importKey("raw", new TextEncoder().encode(pw.value.normalize("NFKC").trim().toLowerCase().replace(/[\s\u2010-\u2015\u2212_.\-]+/g, "-").replace(/^-+|-+$/g, "")), "PBKDF2", false, ["deriveKey"]).then(function (base) {
+        return crypto.subtle.deriveKey({ name: "PBKDF2", salt: b64(B.salt), iterations: B.iter, hash: "SHA-256" }, base,
+          { name: "AES-GCM", length: 256 }, true, ["decrypt"]);
+      });
+    }).then(function (k) { key = k; return run(k); }).then(function () {
+      return crypto.subtle.exportKey("raw", key).then(function (raw) { store(false, KEYNAME, { remember: rem.checked, val: unb64(raw) }); });
+    }).catch(function (e) {
+      err.textContent = e && e.load ? LOADFAIL : "That passphrase did not open it. Check the spelling and try again.";
+      go.disabled = false; go.textContent = "Open the prototype"; pw.select();
+    });
+  });
+})();
+
+/* show or hide what has been typed, so a slip is easy to spot */
+(function () {
+  var b = document.getElementById("gateshow"), pw = document.getElementById("gatepw");
+  if (!b || !pw) { return; }
+  b.addEventListener("click", function () {
+    var show = pw.type === "password";
+    pw.type = show ? "text" : "password";
+    b.textContent = show ? "Hide" : "Show";
+    b.setAttribute("aria-pressed", String(show));
+    b.setAttribute("aria-label", show ? "Hide the passphrase" : "Show the passphrase");
+    pw.focus();
+  });
+}());
+</script>
+</body>
+</html>
